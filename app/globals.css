@@ -45,6 +45,7 @@
 
 :root {
   --radius: 0.625rem;
+  /* Light theme variables (default) */
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -78,6 +79,8 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
 
+/* Removed the .dark class overrides for now to force light mode */
+/*
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -111,6 +114,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
+*/
 
 @layer base {
   * {
@@ -118,5 +122,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Ensure body always uses the root background */
+    background-color: var(--background);
+  }
+  /* Target Shadcn buttons specifically using the data attribute */
+  [data-slot="button"] {
+     @apply cursor-pointer;
   }
 }
