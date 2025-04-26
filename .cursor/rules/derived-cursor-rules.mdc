@@ -7,11 +7,11 @@ globs: *
 
 ### PROJECT DOCUMENTATION & CONTEXT SYSTEM
 
-This section outlines the rules for documenting the project and maintaining context within the AI coding assistant.  All documentation should follow the conventions outlined below.  New documentation regarding common dashboard UI layout patterns has been added (see below).  The `execution-plan.md` file should follow the structure and example provided in the new AI interactions.
+This section outlines the rules for documenting the project and maintaining context within the AI coding assistant.  All documentation should follow the conventions outlined below.  New documentation regarding common dashboard UI layout patterns has been added (see below). The `execution-plan.md` file should follow the structure and example provided in the new AI interactions from 2025-04-26.  The example execution plan should be used as a template for future projects.  All new execution plans should be structured with phases, sub-tasks, and expected outcomes. Each phase should logically build upon the previous one.  The execution plan should be broken out into complete units. Each phase should have sub-pieces detailing the expected outcomes.  Phases should be logically broken out so that each builds on top of the other (e.g., Landing page before Sign Up).
 
 *   **Documentation Style:**  Use Markdown for all documentation.
 *   **Version Control:** Use Git for version control. Commit messages should be clear and concise.
-*   **Common Dashboard UI Layout Patterns:**  Refer to the document generated on 2025-04-26 for common dashboard UI layout patterns and best practices.  These patterns should be considered when designing user interfaces.  Key considerations include information hierarchy, user needs, dashboard type, consistency, responsiveness, white space, and interactivity. Common layout structures include grid, card, sections/panels, stratified, table, sidebar navigation, and top navigation bar.
+*   **Common Dashboard UI Layout Patterns:**  Refer to the document generated on 2025-04-26 for common dashboard UI layout patterns and best practices.  These patterns should be considered when designing user interfaces.  Key considerations include information hierarchy, user needs, dashboard type, consistency, responsiveness, white space, and interactivity. Common layout structures include grid, card, sections/panels, stratified, table, sidebar navigation, and top navigation bar.  See 2025-04-26_19-32-common-dashboard-ui-layout-patterns.md for details.
 *   **Execution Plan Documentation:**  The `execution-plan.md` file should be structured with phases, sub-tasks, and expected outcomes.  Each phase should logically build upon the previous one.  See the example provided in the new AI interactions from 2025-04-26.
 
 
@@ -19,10 +19,10 @@ This section outlines the rules for documenting the project and maintaining cont
 
 This section lists the technologies used in the project.
 
-*   **Programming Languages:**  (List languages)  Add TypeScript if not already present.
-*   **Frameworks/Libraries:** (List frameworks/libraries) Add Next.js and Shadcn components if not already present.
+*   **Programming Languages:** TypeScript, JavaScript
+*   **Frameworks/Libraries:** Next.js, Shadcn components, shadcn, (List other frameworks/libraries)
 *   **Databases:** (List databases)
-*   **Tools:** (List tools) Add any tools used for the project (e.g., Git).
+*   **Tools:** Git, npm, npx, shadcn-ui (or shadcn), pnpm (List other tools)
 
 
 ### CODING STANDARDS
@@ -52,6 +52,7 @@ This section outlines debugging procedures and best practices.
 *   **Debugging Tools:** (List debugging tools)
 *   **Debugging Techniques:** (Describe debugging techniques)
 *   **Logging:** (Describe logging best practices)
+*   **Resolving Module Not Found Errors:** Ensure correct path aliases are configured in `tsconfig.json` and that the necessary components have been added using `npx shadcn@latest add <component-name>`. Restart the development server after adding components.
 
 
 ### BEST PRACTICES
@@ -61,3 +62,4 @@ This section contains general best practices for the project.
 *   **Security:** (Describe security best practices)
 *   **Performance:** (Describe performance best practices)
 *   **Maintainability:** (Describe maintainability best practices)
+*   **Landing Page Best Practices:** Include clear value propositions, visually appealing design, and a prominent call to action.  Refer to the updated `app/page.tsx` file for an example.  Value propositions should be based on competitor analysis and clearly articulate the benefits to the user.

@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- Always review the current code base before suggesting any changes.
+- Always refer to [requirements.md](mdc:requirements.md) to help guide implementation. If there's ever a question about the requirements or multiple options, those options should be presented to me and I want to make the final decision.
+- Always update [requirements.md](mdc:requirements.md) whenever we make updates to the requirements or add more details.
