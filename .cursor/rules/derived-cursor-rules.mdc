@@ -1,0 +1,63 @@
+---
+description: AI rules derived by SpecStory from the project AI interaction history
+globs: *
+---
+
+## AI Coding Assistant Rules
+
+### PROJECT DOCUMENTATION & CONTEXT SYSTEM
+
+This section outlines the rules for documenting the project and maintaining context within the AI coding assistant.  All documentation should follow the conventions outlined below.  New documentation regarding common dashboard UI layout patterns has been added (see below).  The `execution-plan.md` file should follow the structure and example provided in the new AI interactions.
+
+*   **Documentation Style:**  Use Markdown for all documentation.
+*   **Version Control:** Use Git for version control. Commit messages should be clear and concise.
+*   **Common Dashboard UI Layout Patterns:**  Refer to the document generated on 2025-04-26 for common dashboard UI layout patterns and best practices.  These patterns should be considered when designing user interfaces.  Key considerations include information hierarchy, user needs, dashboard type, consistency, responsiveness, white space, and interactivity. Common layout structures include grid, card, sections/panels, stratified, table, sidebar navigation, and top navigation bar.
+*   **Execution Plan Documentation:**  The `execution-plan.md` file should be structured with phases, sub-tasks, and expected outcomes.  Each phase should logically build upon the previous one.  See the example provided in the new AI interactions from 2025-04-26.
+
+
+### TECH STACK
+
+This section lists the technologies used in the project.
+
+*   **Programming Languages:**  (List languages)  Add TypeScript if not already present.
+*   **Frameworks/Libraries:** (List frameworks/libraries) Add Next.js and Shadcn components if not already present.
+*   **Databases:** (List databases)
+*   **Tools:** (List tools) Add any tools used for the project (e.g., Git).
+
+
+### CODING STANDARDS
+
+This section outlines the coding standards to be followed.
+
+*   **Naming Conventions:** (Describe naming conventions)
+*   **Code Formatting:** (Describe code formatting standards)
+*   **Error Handling:** (Describe error handling best practices)
+*   **Commenting:** (Describe commenting standards)
+
+
+### WORKFLOW & RELEASE RULES
+
+This section details the project workflow and release process.
+
+*   **Branching Strategy:** (Describe branching strategy)
+*   **Pull Request Process:** (Describe pull request process)
+*   **Testing:** (Describe testing procedures)
+*   **Deployment:** (Describe deployment process)
+
+
+### DEBUGGING
+
+This section outlines debugging procedures and best practices.
+
+*   **Debugging Tools:** (List debugging tools)
+*   **Debugging Techniques:** (Describe debugging techniques)
+*   **Logging:** (Describe logging best practices)
+
+
+### BEST PRACTICES
+
+This section contains general best practices for the project.
+
+*   **Security:** (Describe security best practices)
+*   **Performance:** (Describe performance best practices)
+*   **Maintainability:** (Describe maintainability best practices)
