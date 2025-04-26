@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from 'next/navigation';
+import { useUser } from "@/context/UserContext"; // Import useUser hook
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -33,6 +34,7 @@ const formSchema = z.object({
 
 export default function SignUpPage() {
   const router = useRouter();
+  const { login } = useUser(); // Get the login function from context
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,26 +47,23 @@ export default function SignUpPage() {
     },
   });
 
-  // 2. Define a submit handler.
+  // 2. Define a submit handler - Use context login function
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // For this demo, we'll just save to Local Storage and redirect.
-    // In a real app, you'd send this to your backend API.
-    console.log("Sign up successful:", values);
+    console.log("Attempting sign up with:", values);
     try {
-      // Store basic user info and a logged-in flag
-      localStorage.setItem('userData', JSON.stringify({
-        email: values.email,
+      // Call the login function from the context
+      // Pass the full user data structure expected by the context
+      login({
         firstName: values.firstName,
-      }));
-      localStorage.setItem('isLoggedIn', 'true');
-      console.log("User data saved to Local Storage.");
+        lastName: values.lastName,
+        email: values.email,
+      });
 
       // Redirect to dashboard
       router.push('/dashboard');
     } catch (error) {
-      console.error("Failed to save to Local Storage or redirect:", error);
-      // Handle potential errors (e.g., Local Storage full, navigation issues)
-      // You might want to show an error message to the user here.
+      console.error("Sign up failed:", error);
+      // Handle errors (e.g., show an error message to the user)
     }
   }
 

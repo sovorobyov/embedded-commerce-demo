@@ -11,7 +11,7 @@ This section outlines the rules for documenting the project and maintaining cont
 
 *   **Documentation Style:**  Use Markdown for all documentation.
 *   **Version Control:** Use Git for version control. Commit messages should be clear and concise.
-*   **Common Dashboard UI Layout Patterns:**  Refer to the document generated on 2025-04-26 for common dashboard UI layout patterns and best practices.  These patterns should be considered when designing user interfaces.  Key considerations include information hierarchy, user needs, dashboard type, consistency, responsiveness, white space, and interactivity. Common layout structures include grid, card, sections/panels, stratified, table, sidebar navigation, and top navigation bar.  See 2025-04-26_19-32-common-dashboard-ui-layout-patterns.md for details.
+*   **Common Dashboard UI Layout Patterns:**  Refer to the document generated on 2025-04-26 for common dashboard UI layout patterns and best practices.  These patterns should be considered when designing user interfaces.  Key considerations include information hierarchy, user needs, dashboard type, consistency, responsiveness, white space, and interactivity. Common layout structures include grid, card, sections/panels, stratified, table, sidebar navigation, and top navigation bar.  See 2025-04-26_19-32-common-dashboard-ui-layout-patterns.md for details.  The top header should span the full width of the page. The sidebar and main content area should share the remaining space.  The sidebar should be hidden on smaller screens and visible on larger screens.  The sidebar should be positioned to the left of the main content area. The top header should contain the user's full name on the far right.
 *   **Execution Plan Documentation:**  The `execution-plan.md` file should be structured with phases, sub-tasks, and expected outcomes.  Each phase should logically build upon the previous one.  See the example provided in the new AI interactions from 2025-04-26.  The example execution plan from 2025-04-26 should be used as a template for future projects.
 
 
@@ -20,7 +20,7 @@ This section outlines the rules for documenting the project and maintaining cont
 This section lists the technologies used in the project.
 
 *   **Programming Languages:** TypeScript, JavaScript
-*   **Frameworks/Libraries:** Next.js, Shadcn components, shadcn, React Hook Form, Zod, (List other frameworks/libraries)
+*   **Frameworks/Libraries:** Next.js, Shadcn components, shadcn, React Hook Form, Zod, Sonner, (List other frameworks/libraries)
 *   **Databases:** (List databases)
 *   **Tools:** Git, npm, npx, shadcn-ui (or shadcn), pnpm (List other tools)
 
@@ -63,3 +63,4 @@ This section contains general best practices for the project.
 *   **Performance:** (Describe performance best practices)
 *   **Maintainability:** (Describe maintainability best practices)
 *   **Landing Page Best Practices:** Include clear value propositions, visually appealing design, and a prominent call to action.  Refer to the updated `app/page.tsx` file for an example.  Value propositions should be based on competitor analysis and clearly articulate the benefits to the user.  The landing page should reflect key features and value propositions similar to those of BigCommerce, Miva, and Shopware. Always include clear value propositions, visually appealing design, and prominent call to action.  Value propositions should be based on competitor analysis and clearly articulate the benefits to the user. The landing page should reflect key features and value propositions similar to those of BigCommerce, Miva, and Shopware.  All buttons should include the `cursor-pointer` style for improved UX.  Global styles should be used to maintain consistency.  Avoid hardcoding dark mode styles unless absolutely necessary; instead, rely on system settings where possible.
+* **Dashboard Layout:** The top header should span the full width of the page. The sidebar and main content area should share the remaining space.  The sidebar should be hidden on smaller screens and visible on larger screens.  The sidebar should be positioned to the left of the main content area.  The top header should contain the user's full name on the far right.
