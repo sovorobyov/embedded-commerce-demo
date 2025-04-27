@@ -61,10 +61,11 @@
 
 *   **Goal:** Make the website's visual theme dynamically configurable based on the Admin selection.
 *   **Tasks:**
-    *   Define basic styling configurations (e.g., color variables, logo URLs) for each branding package (BigCommerce, Miva, Shopware). This could be CSS variables, theme objects, etc.
+    *   Define basic styling configurations (e.g., color variables, logo URLs) for each branding package (BigCommerce, Miva, Shopware). This could be CSS variables, theme objects, etc. They must match the branding using in the actual websites of the three examples we will have.
     *   Create a mechanism (e.g., a context provider, a top-level layout component) to read the selected branding package from Local Storage.
     *   Apply the corresponding styles dynamically throughout the application:
         *   Update the logo in the Dashboard header.
         *   Adjust color schemes, fonts, etc., on all pages (Landing, Sign Up, Dashboard, Settings, Onboarding, Admin) based on the selected theme.
     *   Ensure the default theme is applied if no selection is found in Local Storage.
+    *   Add a default theme card to the admin page, when the application loads and there's no currently selected theme in the localStorage then have this card be highlighted. When there is a theme saved and we select the default theme card, then it should remove the theme selection from the storage.
 *   **Outcome:** The entire website's branding (logo, colors) changes dynamically based on the package selected in the Admin page, providing a configurable look and feel.

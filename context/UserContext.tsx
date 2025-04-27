@@ -15,7 +15,7 @@ interface UserContextType {
   isLoggedIn: boolean;
   isLoading: boolean; // Added to handle initial load
   login: (userData: User) => void;
-  logout: () => void;
+  logout: (clearStorage?: boolean) => void;
   updateProfile: (updatedData: Partial<User>) => void;
 }
 
@@ -61,26 +61,40 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   // Login function
   const login = (userData: User) => {
+    console.log("[UserContext] Attempting login with:", userData);
     try {
       const dataToStore = { firstName: userData.firstName, lastName: userData.lastName, email: userData.email };
+      
+      console.log("[UserContext] Setting userData in localStorage...");
       localStorage.setItem('userData', JSON.stringify(dataToStore));
+      console.log("[UserContext] userData set. Setting isLoggedIn=true in localStorage...");
       localStorage.setItem('isLoggedIn', 'true');
+      console.log("[UserContext] isLoggedIn set in localStorage.");
+
       setUser(userData);
       setIsLoggedIn(true);
-      console.log("User logged in and state updated:", userData);
+      console.log("[UserContext] State updated. User logged in.");
+
     } catch (error) {
-      console.error("Failed to save user state on login:", error);
+      console.error("[UserContext] Error during login process:", error);
     }
   };
 
-  // Logout function
-  const logout = () => {
+  // Update Logout function to conditionally clear storage
+  const logout = (clearStorage: boolean = true) => {
     try {
-      localStorage.removeItem('userData');
+      // Always clear the logged-in flag
       localStorage.removeItem('isLoggedIn');
+      // Conditionally clear user data
+      if (clearStorage) {
+        localStorage.removeItem('userData');
+        console.log("User logged out and user data cleared.");
+      } else {
+        console.log("User logged out (state only, user data preserved).");
+      }
+      // Reset state
       setUser(null);
       setIsLoggedIn(false);
-      console.log("User logged out.");
     } catch (error) {
       console.error("Failed to clear user state on logout:", error);
     }
@@ -110,6 +124,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     logout,
     updateProfile,
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

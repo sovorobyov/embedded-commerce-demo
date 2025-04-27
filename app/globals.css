@@ -43,89 +43,115 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-:root {
-  --radius: 0.625rem;
-  /* Light theme variables (default) */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-}
-
-/* Removed the .dark class overrides for now to force light mode */
-/*
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
-}
-*/
-
 @layer base {
+  :root {
+    /* Update :root variables to match defaultTheme (FluxCart) */
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(240 10% 3.9%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(240 10% 3.9%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(240 10% 3.9%);
+    --primary: hsl(254 78% 56%);            /* Violet */
+    --primary-foreground: hsl(0 0% 100%);    /* White */
+    --secondary: hsl(240 4.8% 95.9%);        /* Light gray */
+    --secondary-foreground: hsl(240 5.9% 10%); /* Dark gray */
+    --muted: hsl(240 4.8% 95.9%);
+    --muted-foreground: hsl(240 3.8% 46.1%); /* Lighter gray */
+    --accent: hsl(240 4.8% 95.9%);
+    --accent-foreground: hsl(240 5.9% 10%);
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 100%);
+    --border: hsl(240 5.9% 90%);            /* Soft gray border */
+    --input: hsl(240 5.9% 90%);
+    --ring: hsl(254 78% 56%);               /* Ring matches primary */
+    --radius: 0.5rem;
+    --font-sans: var(--font-manrope);
+  }
+
+  /* Revert test and use hsl() function for overrides */
+  [data-theme="bigcommerce"] {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(215 28% 17%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(215 28% 17%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(215 28% 17%);
+    --primary: hsl(223 100% 52.5%);
+    --primary-foreground: hsl(0 0% 100%);
+    --secondary: hsl(210 40% 96.1%);
+    --secondary-foreground: hsl(215 28% 17%);
+    --muted: hsl(210 40% 96.1%);
+    --muted-foreground: hsl(215.4 16.3% 46.9%);
+    --accent: hsl(210 40% 96.1%);
+    --accent-foreground: hsl(215 28% 17%);
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 100%);
+    --border: hsl(214.3 31.8% 91.4%);
+    --input: hsl(214.3 31.8% 91.4%);
+    --ring: hsl(223 100% 52.5%);
+    /* Override font */
+    --font-sans: var(--font-inter);
+  }
+
+  [data-theme="miva"] {
+    --background: hsl(220 13% 11%);
+    --foreground: hsl(210 40% 98%);
+    --card: hsl(220 13% 18%);
+    --card-foreground: hsl(210 40% 98%);
+    --popover: hsl(220 13% 11%);
+    --popover-foreground: hsl(210 40% 98%);
+    --primary: hsl(25 95% 53%);
+    --primary-foreground: hsl(0 0% 100%);
+    --secondary: hsl(217 33% 25%);
+    --secondary-foreground: hsl(210 40% 98%);
+    --muted: hsl(217 33% 25%);
+    --muted-foreground: hsl(215 20% 65%);
+    --accent: hsl(25 95% 53%);
+    --accent-foreground: hsl(0 0% 100%);
+    --destructive: hsl(0 63% 31%);
+    --destructive-foreground: hsl(210 40% 98%);
+    --border: hsl(217 33% 28%);
+    --input: hsl(217 33% 28%);
+    --ring: hsl(25 95% 53%);
+    /* Override font */
+    --font-sans: var(--font-montserrat);
+  }
+
+  [data-theme="shopware"] {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(205 50% 25%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(205 50% 25%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(205 50% 25%);
+    --primary: hsl(190 80% 40%);
+    --primary-foreground: hsl(0 0% 100%);
+    --secondary: hsl(210 40% 96.1%);
+    --secondary-foreground: hsl(205 50% 25%);
+    --muted: hsl(210 40% 96.1%);
+    --muted-foreground: hsl(215.4 16.3% 46.9%);
+    --accent: hsl(190 80% 40%);
+    --accent-foreground: hsl(0 0% 100%);
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 100%);
+    --border: hsl(214.3 31.8% 91.4%);
+    --input: hsl(214.3 31.8% 91.4%);
+    --ring: hsl(190 80% 40%);
+    /* Override font */
+    --font-sans: var(--font-inter);
+  }
+
+  /* Removed dark mode for now */
+  /* .dark { ... } */
+
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
-    /* Ensure body always uses the root background */
-    background-color: var(--background);
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
-  /* Target Shadcn buttons specifically using the data attribute */
   [data-slot="button"] {
      @apply cursor-pointer;
   }

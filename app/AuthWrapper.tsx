@@ -1,36 +1,48 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useUser } from "@/context/UserContext"; // Import useUser
 
-// Simple component to check login status on client-side
-// WARNING: This is NOT secure and only for demo purposes.
+// Component to check login status using context
+// WARNING: This is still client-side only, not for production security.
 export function AuthWrapper({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isChecking, setIsChecking] = useState(true);
+  const { isLoggedIn, isLoading } = useUser(); // Use context state
 
   useEffect(() => {
-    // Check only on specific dashboard-related paths
-    const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/settings') || pathname.startsWith('/onboarding') || pathname.startsWith('/admin');
+    // Define protected routes
+    const protectedRoutes = ['/dashboard', '/settings', '/onboarding', '/admin'];
+    const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
-    if (isProtectedRoute) {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      if (!isLoggedIn) {
-        console.log('User not logged in, redirecting to /signup');
-        router.replace('/signup'); // Use replace to avoid adding to history
-      } else {
-        setIsChecking(false); // Logged in, allow rendering
-      }
-    } else {
-      setIsChecking(false); // Not a protected route, allow rendering
+    // Wait for context to load
+    if (isLoading) {
+      return;
     }
-  }, [pathname, router]);
 
-  // Show nothing or a loader while checking
-  if (isChecking && (pathname.startsWith('/dashboard') || pathname.startsWith('/settings') || pathname.startsWith('/onboarding') || pathname.startsWith('/admin'))) {
-    return null; // Or return a loading spinner component
+    // If protected route and not logged in, redirect *within the effect*
+    if (isProtectedRoute && !isLoggedIn) {
+      console.log('AuthWrapper Effect: User not logged in, redirecting to /signup.');
+      router.replace('/signup');
+    }
+  }, [pathname, router, isLoggedIn, isLoading]); // Effect runs when these change
+
+  // Render logic: only show children if loading is done AND
+  // (it's not a protected route OR the user is logged in)
+  if (isLoading) {
+     return null; // Show nothing while loading
   }
 
+  const protectedRoutes = ['/dashboard', '/settings', '/onboarding', '/admin'];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  // If it's protected and user is not logged in (after loading), render nothing
+  // The redirect will have been initiated by the useEffect above.
+  if (isProtectedRoute && !isLoggedIn) {
+      return null;
+  }
+
+  // Otherwise, user is authorized OR it's not a protected route
   return <>{children}</>;
 } 
