@@ -140,30 +140,32 @@ export const mivaTheme: ThemeConfig = {
 export const shopwareTheme: ThemeConfig = {
   id: "shopware",
   name: "Shopware",
-  // Update Shopware logoUrl
   logoUrl: "https://assets.shopware.com/media/logos/shopware_logo_blue.svg",
   logoText: "Shopware",
   variables: defineThemeVariables({
-    // Blue/Greenish theme
+    // Blue/Greenish theme -> Update to specific Blue
     '--background': '0 0% 100%',
-    '--foreground': '205 50% 25%', // Dark Blue/Green
+    '--foreground': '205 50% 25%', // Keep this dark blue/green text for now
     '--card': '0 0% 100%',
     '--card-foreground': '205 50% 25%',
     '--popover': '0 0% 100%',
     '--popover-foreground': '205 50% 25%',
-    '--primary': '190 80% 40%', // Shopware Blue/Green
-    '--primary-foreground': '0 0% 100%',
+    // Update primary HSL value based on hex #0870ff
+    '--primary': '218 100% 51%',
+    '--primary-foreground': '0 0% 100%', // White text still works
     '--secondary': '210 40% 96.1%',
     '--secondary-foreground': '205 50% 25%',
     '--muted': '210 40% 96.1%',
     '--muted-foreground': '215.4 16.3% 46.9%',
-    '--accent': '190 80% 40%', // Accent matches primary
+    // Update accent to match new primary
+    '--accent': '218 100% 51%',
     '--accent-foreground': '0 0% 100%',
     '--destructive': '0 84.2% 60.2%',
     '--destructive-foreground': '0 0% 100%',
     '--border': '214.3 31.8% 91.4%',
     '--input': '214.3 31.8% 91.4%',
     '--font-sans': 'var(--font-inter)',
+    // Ring will automatically update via helper
   })
 };
 
