@@ -82,25 +82,43 @@
         *   Wait for the SDK script to load (check if `window.PayPal.onboard` is defined).
         *   Once loaded, call `window.PayPal.onboard()` to initialize the SDK.
         *   Pass the necessary configuration object to the `onboard()` function:
-            *   The ID of the container element (e.g., `containerId: 'paypal-onboarding-container'`).
+            *   Call `.render()` after initialization to mount the SDK UI into a container element (e.g., `render('#paypal-onboarding-container')`).
             *   Static configuration like `partnerId` (from config/env) and `environment='sandbox'`.
             *   Placeholder values for dynamic credentials (`accessToken: null`, `referralId: null`), which will be fetched in Phase 7.
     *   Add basic loading states (e.g., showing "Loading SDK...") while waiting for the script and error handling if the script fails to load or initialization fails.
 *   **Outcome:** The Onboarding page loads the external Payments SDK script. Once loaded, the SDK initializes and renders its UI within the designated container `div`, likely showing an initial state or an error due to missing credentials, but confirming successful script loading and initialization via `window.PayPal.onboard`.
 
-## Phase 7: Implement Backend Credential Generation for SDK
+## Phase 7: Server-Side SDK Credential/URL Generation (Partner Referrals API)
 
-*   **Goal:** Dynamically generate the required access token and partner referral ID on the backend and provide them to the frontend SDK component.
+*   **Goal:** Dynamically generate the required SDK `accessToken` and the seller onboarding `actionUrl` on the server using the PayPal Partner Referrals API during page load, passing them directly to the Onboarding component.
 *   **Tasks:**
-    *   Create a new backend API route (e.g., `/api/payments/onboarding-credentials`).
-    *   Implement logic within the API route to:
-        *   Simulate authentication/authorization if necessary.
-        *   Simulate calling the required YourBrand API to generate a partner referral ID.
-        *   Simulate calling the required YourBrand API to generate a short-lived access token for the SDK.
-        *   Return the generated `referralId` and `accessToken` in the API response.
-    *   Modify the Onboarding page component (`app/(dashboard)/onboarding/page.tsx`):
-        *   Use `useEffect` and `useState` to manage the fetching of credentials.
-        *   Fetch the `referralId` and `accessToken` from the `/api/payments/onboarding-credentials` route when the component mounts.
-        *   Update the state with the fetched credentials.
-        *   Pass the fetched `referralId` and `accessToken` as props to the rendered `PaymentsOnboarding` SDK component.
-*   **Outcome:** The Payments SDK component on the Onboarding page successfully initializes using dynamically generated (simulated) credentials fetched from the backend, proceeding to the next step in its internal onboarding flow.
+    *   **Install `axios`:** Add `axios` for making server-side HTTP requests (`pnpm add axios`).
+    *   **Configure Server Environment:** Ensure PayPal Partner Client ID, Secret, and BN Code are securely available as environment variables (e.g., in `.env.local`).
+    *   **Modify the `OnboardingPage` component (`app/(dashboard)/onboarding/page.tsx`):**
+        *   Confirm it remains a Client Component (`"use client"`).
+        *   Ensure its signature accepts `accessToken` (for the SDK) and `actionUrl` as props.
+    *   **Implement Server Component Logic (`app/(dashboard)/onboarding/page.tsx` - Server Wrapper):**
+        *   Rename the existing client component (e.g., to `OnboardingClientComponent`).
+        *   Create a new default `async` function component in `page.tsx`. This Server Component will:
+            *   **Generate Partner Access Token:**
+                *   Make a `POST` request to the PayPal OAuth2 token endpoint (`https://api-m.sandbox.paypal.com/v1/oauth2/token`) using `axios`.
+                *   Use Basic Authentication with the Partner Client ID and Secret.
+                *   Request `grant_type=client_credentials`.
+                *   Extract the `access_token` (Partner Token) from the response.
+            *   **Call Partner Referrals API:**
+                *   Make a `POST` request to `https://api-m.sandbox.paypal.com/v2/customer/partner-referrals` using `axios`.
+                *   Include the generated Partner Token in the `Authorization: Bearer` header.
+                *   Include the Partner BN Code (from env vars).
+                *   Construct the request body, including:
+                    *   `tracking_id`: A unique ID for the seller (e.g., the logged-in user's ID).
+                    *   `operations`: Define `API_INTEGRATION` preference with `PAYPAL`, `THIRD_PARTY`, and features like `PAYMENT`, `REFUND`.
+                    *   `products`: Specify desired products (e.g., `["EXPRESS_CHECKOUT"]` or `["PPCP"]`).
+                    *   `legal_consents`: Grant `SHARE_DATA_CONSENT`.
+                    *   *(Optional)* `partner_config_override`: Include `return_url` pointing back to the onboarding page or a success step.
+                *   Extract the `action_url` from the `links` array in the API response.
+            *   **Generate SDK Access Token:**
+                *   *(Simulation/Placeholder)* Simulate calling the necessary API (details potentially differ from Partner Referrals API) to generate the short-lived `accessToken` specifically required by the SDK's `initialize` method. *This step might need refinement based on further SDK documentation for token generation specific to the JS SDK initialization.*
+            *   **Render Client Component:** Render the `<OnboardingClientComponent>` passing the generated `accessToken` (SDK token) and `actionUrl` as props.
+    *   **Refactor `OnboardingClientComponent`:**
+        *   Ensure the `initializeAndRenderSDK` function uses the `accessToken` and `actionUrl` received via props when calling `window.Paypal.onboard.initialize`.
+*   **Outcome:** The onboarding page fetches Partner credentials server-side via `axios`, calls the Partner Referrals API to get the `actionUrl`, generates the SDK `accessToken`, and passes these directly to the client component as props. The SDK initializes using live (sandbox) data obtained server-side, streamlining the onboarding start process.
