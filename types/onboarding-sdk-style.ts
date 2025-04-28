@@ -390,7 +390,7 @@ interface ColorProperty {
 }
 
 // Main exported type
-export interface StyleExample {
+export interface OnboardingSDKStyle {
     size: SizeProperty;
     space: SpaceProperty;
     elevation: ElevationProperty;

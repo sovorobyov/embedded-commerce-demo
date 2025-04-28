@@ -1,5 +1,4 @@
 import { ThemeConfig } from './brandingThemes';
-// Import the full style type
 import { OnboardingSDKStyle } from '@/types/onboarding-sdk-style'; 
 
 /**
@@ -14,6 +13,7 @@ export function mapThemeToPayPalStyle(theme: ThemeConfig): Partial<OnboardingSDK
   const sdkStyle: Partial<OnboardingSDKStyle> = {};
 
   // Helper to safely initialize nested properties
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ensurePath(obj: any, path: string[]) {
     let current = obj;
     for (let i = 0; i < path.length - 1; i++) {
@@ -73,7 +73,7 @@ export function mapThemeToPayPalStyle(theme: ThemeConfig): Partial<OnboardingSDK
     // The SDK likely expects a font family name string like "PayPalPlain-Regular"
     // This mapping needs adjustment based on how fonts are handled.
     // For now, we just log it might not directly work.
-    // parent[finalKey] = fontFamily; // This might be incorrect for SDK
+    parent[finalKey] = fontFamily;
     console.log(`Mapping --font-sans: ${fontFamily} potentially to ${path.join('.')} (requires SDK check)`);
   }
 

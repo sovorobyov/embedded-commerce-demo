@@ -34,7 +34,7 @@ export default async function OnboardingPage() {
   return (
     <div className="p-4 md:p-6">
       <PayPalOnboardingSDK 
-        accessToken={sdkAccessToken}
+        accessToken={partnerToken}
         actionUrl={actionUrl}
         error={serverError}
       />

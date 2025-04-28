@@ -1,17 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useBranding } from '@/hooks/useBranding';
 import { defaultTheme } from '@/lib/brandingThemes';
 import { mapThemeToPayPalStyle } from '@/lib/paypalStyleMapper';
-
-type PayPalOnboardConfig = {
-  // ... configuration properties based on PayPal documentation ...
-};
-
-type PayPalRenderableInstance = {
-  render: (element: string) => void;
-};
 
 interface PayPalOnboardingSDKProps {
   accessToken: string | null;
@@ -24,20 +16,17 @@ export default function PayPalOnboardingSDK({
   actionUrl,
   error: serverError
 }: PayPalOnboardingSDKProps) {
-  const [isLoadingSDK, setIsLoadingSDK] = useState(true);
   const [sdkError, setSdkError] = useState<string | null>(serverError || null);
   const { selectedTheme } = useBranding();
 
   const initializeAndRenderSDK = useCallback(() => {
     if (sdkError) {
-      setIsLoadingSDK(false);
       return;
     }
     
     if (!accessToken || !actionUrl) {
        console.error('Missing accessToken or actionUrl for SDK initialization.');
        setSdkError('Configuration error: Missing required credentials.');
-       setIsLoadingSDK(false);
        return;
     }
     
@@ -58,7 +47,6 @@ export default function PayPalOnboardingSDK({
         
         if (instance && typeof instance.render === 'function') {
              instance.render('paypal-onboarding-container');
-             setIsLoadingSDK(false);
              setSdkError(null);
              console.log('PayPal onboarding rendering initiated.');
         } else {
@@ -68,18 +56,15 @@ export default function PayPalOnboardingSDK({
       } catch (error) {
         console.error('Client-side error initializing PayPal onboarding:', error);
         setSdkError('Failed to initialize the payments SDK on the client.');
-        setIsLoadingSDK(false);
       }
     } else {
       console.error('initializeAndRenderSDK called but window.Paypal.onboard.initialize not found.');
       setSdkError('Payments SDK script not available or structured as expected. It might have failed to load.');
-      setIsLoadingSDK(false);
     }
   }, [selectedTheme, accessToken, actionUrl, sdkError]);
 
   useEffect(() => {
     if (sdkError || !accessToken || !actionUrl) {
-       setIsLoadingSDK(false);
        return; 
     }
 
@@ -100,7 +85,6 @@ export default function PayPalOnboardingSDK({
         } else {
           console.error(`PayPal SDK script not found after ${maxAttempts} attempts.`);
           setSdkError('Payments SDK script failed to load in time. Please refresh the page.');
-          setIsLoadingSDK(false);
         }
       }
     };

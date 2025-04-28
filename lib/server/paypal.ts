@@ -49,7 +49,7 @@ export async function getPartnerReferralActionUrl(partnerToken: string): Promise
         operation: "API_INTEGRATION",
         api_integration_preference: {
             rest_api_integration: {
-                integration_method: "PAYPAL",
+                integration_method: "SDK",
                 integration_type: "THIRD_PARTY",
                 third_party_details: {
                   "signup_mode": "VERIFY_WITH_PAYPAL",

@@ -45,6 +45,7 @@ This section details the project workflow and release process.
 *   **Pull Request Process:** (Describe pull request process)
 *   **Testing:** (Describe testing procedures)
 *   **Deployment:** (Describe deployment process)
+*   **Resolving TypeScript Import Errors:** If encountering TypeScript import errors, especially those related to missing type definitions, ensure that the types are correctly exported from their source files using the `export` keyword. If the error persists after verifying exports, try the following: delete the `.next` directory, delete `node_modules` and reinstall dependencies (`rm -rf node_modules && pnpm install`), and restart the TypeScript server.
 
 
 ### DEBUGGING
