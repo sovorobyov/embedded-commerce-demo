@@ -61,7 +61,7 @@
 
 *   **Goal:** Make the website's visual theme dynamically configurable based on the Admin selection.
 *   **Tasks:**
-    *   Define basic styling configurations (e.g., color variables, logo URLs) for each branding package (BigCommerce, Miva, Shopware). This could be CSS variables, theme objects, etc. They must match the branding using in the actual websites of the three examples we will have.
+    *   Define basic styling configurations (e.g., color variables, logo URLs) for each branding package (BigCommerce, Miva, Shopware). This could be CSS variables, theme objects, etc.
     *   Create a mechanism (e.g., a context provider, a top-level layout component) to read the selected branding package from Local Storage.
     *   Apply the corresponding styles dynamically throughout the application:
         *   Update the logo in the Dashboard header.
@@ -69,3 +69,38 @@
     *   Ensure the default theme is applied if no selection is found in Local Storage.
     *   Add a default theme card to the admin page, when the application loads and there's no currently selected theme in the localStorage then have this card be highlighted. When there is a theme saved and we select the default theme card, then it should remove the theme selection from the storage.
 *   **Outcome:** The entire website's branding (logo, colors) changes dynamically based on the package selected in the Admin page, providing a configurable look and feel.
+
+## Phase 6: Integrate Payments SDK (Client-Side via Script)
+
+*   **Goal:** Integrate the YourBrand Payments Onboarding SDK into the existing Onboarding page using the provided script loading method.
+*   **Tasks:**
+    *   Convert the Onboarding page (`app/(dashboard)/onboarding/page.tsx`) to a Client Component (`"use client"`).
+    *   Add the YourBrand Payments SDK `<script>` tag to the application. This should likely be done using the Next.js `Script` component (`next/script`) within the Onboarding page or a relevant layout file for deferred loading. Identify the correct script URL from the integration guide.
+    *   Modify the Onboarding page UI:
+        *   Add a dedicated `div` element that will serve as the container for the SDK's UI. Ensure it has a unique ID (e.g., `id="paypal-onboarding-container"`).
+    *   Implement logic within the Onboarding page component using `useEffect` and `useState`:
+        *   Wait for the SDK script to load (check if `window.PayPal.onboard` is defined).
+        *   Once loaded, call `window.PayPal.onboard()` to initialize the SDK.
+        *   Pass the necessary configuration object to the `onboard()` function:
+            *   The ID of the container element (e.g., `containerId: 'paypal-onboarding-container'`).
+            *   Static configuration like `partnerId` (from config/env) and `environment='sandbox'`.
+            *   Placeholder values for dynamic credentials (`accessToken: null`, `referralId: null`), which will be fetched in Phase 7.
+    *   Add basic loading states (e.g., showing "Loading SDK...") while waiting for the script and error handling if the script fails to load or initialization fails.
+*   **Outcome:** The Onboarding page loads the external Payments SDK script. Once loaded, the SDK initializes and renders its UI within the designated container `div`, likely showing an initial state or an error due to missing credentials, but confirming successful script loading and initialization via `window.PayPal.onboard`.
+
+## Phase 7: Implement Backend Credential Generation for SDK
+
+*   **Goal:** Dynamically generate the required access token and partner referral ID on the backend and provide them to the frontend SDK component.
+*   **Tasks:**
+    *   Create a new backend API route (e.g., `/api/payments/onboarding-credentials`).
+    *   Implement logic within the API route to:
+        *   Simulate authentication/authorization if necessary.
+        *   Simulate calling the required YourBrand API to generate a partner referral ID.
+        *   Simulate calling the required YourBrand API to generate a short-lived access token for the SDK.
+        *   Return the generated `referralId` and `accessToken` in the API response.
+    *   Modify the Onboarding page component (`app/(dashboard)/onboarding/page.tsx`):
+        *   Use `useEffect` and `useState` to manage the fetching of credentials.
+        *   Fetch the `referralId` and `accessToken` from the `/api/payments/onboarding-credentials` route when the component mounts.
+        *   Update the state with the fetched credentials.
+        *   Pass the fetched `referralId` and `accessToken` as props to the rendered `PaymentsOnboarding` SDK component.
+*   **Outcome:** The Payments SDK component on the Onboarding page successfully initializes using dynamically generated (simulated) credentials fetched from the backend, proceeding to the next step in its internal onboarding flow.
